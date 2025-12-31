@@ -3,19 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <title>بحبك يا لوزه</title>
-<link rel="stylesheet" href="style.css">
-</head>
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  text-align:center;
+  overflow: hidden;
+  background: linear-gradient(120deg, #ffccd5, #ffd6e0, #ffe0f0, #fff0f5);
+  background-size: 400% 400%;
+  animation: bgAnim 20s ease infinite;
+  color:white;
+}
 
+@keyframes bgAnim{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.heart{
+  font-size:60px;
+  animation: beat 1s infinite;
+  color:#ff4d6d;
+  text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff85a2, 0 0 30px #ffc0cb;
+  position: relative;
+  z-index:10;
+}
+
+@keyframes beat{
+  0%{transform:scale(1);}
+  25%{transform:scale(1.2);}
+  50%{transform:scale(1.5);}
+  75%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+
+#login{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  position: relative;
+  z-index:10;
+}
+
+input,button{
+  padding:12px;
+  font-size:18px;
+  border-radius:10px;
+  border:none;
+}
+
+button{margin-top:10px;}
+
+#content{display:none; padding:20px; position:relative; z-index:10;}
+
+#message{
+  max-width:700px;
+  margin:auto;
+  font-size:20px;
+  line-height:1.9;
+  white-space:pre-wrap;
+}
+
+.slider{
+  width:300px;
+  margin:30px auto;
+}
+
+.slider img{
+  width:100%;
+  display:none;
+  border-radius:15px;
+}
+
+.slider img.active{display:block;}
+
+.slider button{margin:10px;}
+
+.floating-heart{
+  position: absolute;
+  font-size: 20px;
+  color: #ff4d6d;
+  animation: floatUp 5s linear infinite;
+  user-select: none;
+}
+
+@keyframes floatUp{
+  0% { transform: translateY(0) scale(1); opacity:1; }
+  100% { transform: translateY(-800px) scale(1.5); opacity:0; }
+}
+</style>
+</head>
 <body>
 
 <div id="heartsContainer"></div>
 
+<!-- صفحة الباسورد -->
 <div id="login">
   <h2>🔒 دخلي الباسورد</h2>
   <input type="password" id="pass">
   <button onclick="check()">دخول</button>
 </div>
 
+<!-- المحتوى بعد دخول الباسورد -->
 <div id="content">
   <h1>بحبك يا لوزه</h1>
   <div class="heart">❤️</div>
@@ -34,17 +126,75 @@
     <img src="img/img1.jpg" class="active">
     <img src="img/img2.jpg">
     <img src="img/img3.jpg">
-    <img src="img/img4.jpg">
-    <img src="img/img5.jpg">
-    <img src="img/img6.jpg">
-    <img src="img/img7.jpg">
-    <img src="img/img8.jpg">
+    <!-- لو عايز تضيف صور أكتر، حطهم هنا -->
     <br>
     <button onclick="prev()">⬅</button>
     <button onclick="next()">➡</button>
   </div>
 </div>
 
-<script src="script.js"></script>
+<!-- جافاسكربت مدموج داخل الصفحة -->
+<script>
+function check(){
+  let pass = document.getElementById("pass").value.trim();
+  if(pass === "692025"){
+    document.getElementById("login").style.display = "none";
+    document.getElementById("content").style.display = "block";
+    typeMessage();
+  } else {
+    alert("الباسورد غلط");
+  }
+}
+
+const text = `هلا اي يعمري عامله اي  
+بما ان طبعا مش هعرف اجيبلك حاجه عشان العيله الكريمه  
+ف يعني دي اقل حاجه اقدر اقدمهالك  
+
+المهم يعمري بصي ينونو  
+خليكي عارفه اني بحبك وبموت فيكي  
+وخليكي عارفه ان كل حاجه جت بسرعه  
+
+الماسيج دي ومعرفتش اطلع فيها كل حاجه  
+بس كل الي اقدر اقوله  
+اني بحبك وبعشقك وبموت فيكي  
+
+خليكي عارفه اني قد وعدي  
+وبحبك ومش عايز غيرك  
+
+خليكي عارفه انك احن  
+واحلا واجمل واغلا الناس عندي  
+
+ذكريات حلوه  
+وايام متتعوضش  
+
+بحبك امواااههههه 💋💋💋`;
+
+let i=0;
+function typeMessage(){
+  if(i<text.length){
+    document.getElementById("message").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeMessage,40);
+  }
+}
+
+let index=0;
+const imgs=document.querySelectorAll(".slider img");
+function show(){imgs.forEach(img=>img.classList.remove("active")); imgs[index].classList.add("active");}
+function next(){index=(index+1)%imgs.length; show();}
+function prev(){index=(index-1+imgs.length)%imgs.length; show();}
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.classList.add("floating-heart");
+  heart.style.left = Math.random()*window.innerWidth + "px";
+  heart.style.fontSize = (10 + Math.random()*20) + "px";
+  document.getElementById("heartsContainer").appendChild(heart);
+  heart.innerText = "❤️";
+  setTimeout(()=>{heart.remove()},5000);
+}
+setInterval(createHeart, 300);
+</script>
+
 </body>
 </html>
