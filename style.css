@@ -1,0 +1,90 @@
+body{
+  margin:0;
+  font-family:Arial;
+  text-align:center;
+  overflow: hidden;
+  background: linear-gradient(120deg, #ffccd5, #ffd6e0, #ffe0f0, #fff0f5);
+  background-size: 400% 400%;
+  animation: bgAnim 20s ease infinite;
+  color:white;
+}
+
+@keyframes bgAnim{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.heart{
+  font-size:60px;
+  animation: beat 1s infinite;
+  color:#ff4d6d;
+  text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff85a2, 0 0 30px #ffc0cb;
+  position: relative;
+  z-index:10;
+}
+
+@keyframes beat{
+  0%{transform:scale(1);}
+  25%{transform:scale(1.2);}
+  50%{transform:scale(1.5);}
+  75%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+
+#login{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  position: relative;
+  z-index:10;
+}
+
+input,button{
+  padding:12px;
+  font-size:18px;
+  border-radius:10px;
+  border:none;
+}
+
+button{margin-top:10px;}
+
+#content{display:none; padding:20px; position:relative; z-index:10;}
+
+#message{
+  max-width:700px;
+  margin:auto;
+  font-size:20px;
+  line-height:1.9;
+  white-space:pre-wrap;
+}
+
+.slider{
+  width:300px;
+  margin:30px auto;
+}
+
+.slider img{
+  width:100%;
+  display:none;
+  border-radius:15px;
+}
+
+.slider img.active{display:block;}
+
+.slider button{margin:10px;}
+
+.floating-heart{
+  position: absolute;
+  font-size: 20px;
+  color: #ff4d6d;
+  animation: floatUp 5s linear infinite;
+  user-select: none;
+}
+
+@keyframes floatUp{
+  0% { transform: translateY(0) scale(1); opacity:1; }
+  100% { transform: translateY(-800px) scale(1.5); opacity:0; }
+}
